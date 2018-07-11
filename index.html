@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>ChatLab</title>
+  </head>
+  <body>
+    <h1>ChatLab</h1>
+    <div>
+      <!--Login -->
+      <div id="logout" class="hiden">
+        <p id="username"></p>
+        <input type="button" name="" value="Logout" id="btnLogout">
+      </div>
+      <!--Autenticado -->
+      <div id="login">
+        <label for="email">Email</label>
+        <input type="email" name="" value="" id="email" required>
+        <label for="password">Password</label>
+        <input type="password" name="" value="" id="password" required>
+        <input type="button" id="btnRegister"value="Register">
+        <input type="button" id="btnLogin" value="Login">
+      </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBwQD35dVtywx6LWDbl6zkoUuRQmV59qFw",
+        authDomain: "chatilabo.firebaseapp.com",
+        databaseURL: "https://chatilabo.firebaseio.com",
+        projectId: "chatilabo",
+        storageBucket: "",
+        messagingSenderId: "981509472362"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>
