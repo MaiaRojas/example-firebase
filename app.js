@@ -7,6 +7,8 @@ const btnRegister = document.getElementById('btnRegister')
 const btnLogin = document.getElementById('btnLogin')
 const btnLogout = document.getElementById('btnLogout')
 const btnFacebook = document.getElementById('btnFacebook');
+const btnGoogle = document.getElementById('btnGoogle');
+
 
 window.onload = () => {
   firebase.auth().onAuthStateChanged(function(user) {
@@ -58,20 +60,29 @@ btnFacebook.addEventListener('click', () => {
     'display' : 'popup'
   });
   firebase.auth().signInWithPopup(provider)
-    .then(function(result) {
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      var token = result.credential.accessToken;
-      // The signed-in user info.
-      var user = result.user;
-      console.log(user);
-      // ...
-      console.log('Logueado con Fb')
-  }).catch(function(error) {
-    console.log(error.code);
-    console.log(error.message);
-    console.log(error.email);
-    console.log(error.credential);
-    // ...
-    
+    .then(function(result) { console.log('Logueado con Fb')})
+    .catch(function(error) {
+      console.log(error.code);
+      console.log(error.message);
+      console.log(error.email);
+      console.log(error.credential);
   });
 })
+
+btnGoogle.addEventListener('click',() => {
+  var provider = new firebase.auth.GoogleAuthProvider();
+
+  //provider.setCustomParameters({
+  //  'login_hint': 'user@example.com'
+  //});
+
+  firebase.auth().signInWithPopup(provider)
+    .then(function(result) { console.log('Login Google') })
+    .catch(function(error) {
+      console.log(error.code);
+      console.log(error.message);
+      console.log(error.email);
+      console.log(error.credential);
+  });
+
+});
