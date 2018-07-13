@@ -5,3 +5,7 @@
 .show {
   display: block;
 }
+
+#login, #bd {
+  margin: 20px;
+}
