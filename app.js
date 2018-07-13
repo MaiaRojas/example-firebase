@@ -59,12 +59,14 @@ function writeNewPost(uid, body) {
   updates['/posts/' + newPostKey] = postData;
   updates['/user-posts/' + uid + '/' + newPostKey] = postData;
 
-  return firebase.database().ref().update(updates);
+  firebase.database().ref().update(updates);
+  return newPostKey;
 }
 
 btnSave.addEventListener('click', () => {
   var userId = firebase.auth().currentUser.uid;
-  writeNewPost(userId, post.value );
+  const newPost = writeNewPost(userId, post.value );
+
 
   var btnUpdate = document.createElement("input");
   btnUpdate.setAttribute("value", "Update");
@@ -73,13 +75,48 @@ btnSave.addEventListener('click', () => {
   btnDelete.setAttribute("value", "Delete");
   btnDelete.setAttribute("type", "button");
   var contPost = document.createElement('div');
+  var textPost = document.createElement('textarea')
+  textPost.setAttribute("id", newPost);
 
-  contPost.innerHTML = `<textarea name="Publicacòn" id="post" cols="30" rows="10">${post.value}</textarea>`;
+  textPost.innerHTML = post.value;
 
+  btnDelete.addEventListener('click', () => {
+
+    firebase.database().ref().child('/user-posts/' + userId + '/' + newPost).remove();
+    firebase.database().ref().child('posts/' + newPost).remove();
+
+    while(posts.firstChild) posts.removeChild(posts.firstChild);
+
+    alert('The user is deleted successfully!');
+    reload_page();
+
+  });
+
+  btnUpdate.addEventListener('click', () => {
+    const newUpdate = document.getElementById(newPost);
+    const nuevoPost = {
+      body: newUpdate.value,
+    };
+
+    var updatesUser = {};
+    var updatesPost = {};
+
+    updatesUser['/user-posts/' + userId + '/' + newPost] = nuevoPost;
+    updatesPost['/posts/' + newPost ] = nuevoPost;
+
+    firebase.database().ref().update(updatesUser);
+    firebase.database().ref().update(updatesPost);
+    
+  });
+
+  contPost.appendChild(textPost);
   contPost.appendChild(btnUpdate );
   contPost.appendChild(btnDelete);
   posts.appendChild(contPost);
 })
+
+
+
 
 btnRegister.addEventListener('click', () => {
   firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
@@ -133,7 +170,7 @@ btnGoogle.addEventListener('click',() => {
       console.log('Login Google');
       var user = result.user;
       writeUserData(user.uid, user.displayName, user.email, user.photoURL);
-     })
+    })
     .catch(function(error) {
       console.log(error.code);
       console.log(error.message);
@@ -141,3 +178,7 @@ btnGoogle.addEventListener('click',() => {
       console.log(error.credential);
   });
 });
+
+function reload_page (){
+  window.location.reload();
+}

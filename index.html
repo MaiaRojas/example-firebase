@@ -26,25 +26,16 @@
         <input type="button" id="btnFacebook" value="Facebook">
         <input type="button" id="btnGoogle" value="Google">
       </div>
-         <!--Base de datos -->
+      <!--Base de datos -->
       <div id="bd" class="hiden">
         <textarea name="Publicacòn" id="post" cols="30" rows="10"></textarea>
         <input type="button" value="Publicar" id="btnSave">
       </div>
-      <h3>Post</h3>
-      <div id="posts" class="hiden"></div>
-      <div class="hiden">
-        <!--Contenedor de gif-->                                    
-        <div id="gifContainer"></div>
-        <!--Opción para enviar gif-->            
-        <div>
-            <input id="gifArea" type="text"> <input id="sendGif" onclick="sendGif()" type="button" value="SEND GIF">
-        </div>
-        <!--Opción para enviar imagen-->
-        <div>
-            <input id="photoFileSelector" type="file"> <input id="sendPhoto" type="button" onclick="sendPhotoToStorage()" value="SEND PHOTO">
-        </div>
+
+      <div id="posts" class="hiden">
+        <h3>Post</h3>
       </div>
+      
     </div>
     <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
     <script>
